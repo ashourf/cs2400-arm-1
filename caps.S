@@ -18,11 +18,13 @@ caps			FILL		4
 loop
 			LDR		r4, [r0] ;get first value
 			CMP		r4, #97 ; compare value to 97 the first ascii lower case letter
-			BGE		capitalize ; if greater than or eqoual too branch 
+			ADD		LR, PC, #after ;saves spot after main onto link register
+			BLGE		capitalize ; if greater than or equal too branch
+after
 			STR		r4, [r0], #4  ; move to the next value
 			SUBS		r2, r2, #1 ; subtract one value from loop counter
 			BNE		loop       ; loop
-			END                  ; end of program 
+			END		; end of program
 			
 			
 			
@@ -31,6 +33,6 @@ loop
 			
 capitalize
 			CMP		r4, #122  ; check for 122
-			SUBLE	r4, r4, #34 ; if less than or eqal to 122 subtract 
-			
+			SUBLE	r4, r4, #34 ; if less than or eqal to 122 subtract 34
+			MOV		PC, LR      ;after execution move execution back to saved spot in main
 			
