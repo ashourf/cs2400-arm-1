@@ -19,10 +19,19 @@ start
 		LDR		r1, [r0], #4 ;load multiplicand into r1
 		LDR		r2, [r0], #4 ;load multipiler into r2
 		LDR		r3, [r0], #4  ; set product to zero
-		ADR		r4, bcounter ; give bcounter address 
+		ADR		r4, bcounter ; give bcounter address
 		LDR		r4,[r4] ;load counter into memory
 loop
 		AND		r5, r1, #0b1 ;get the least signifcant bit of multipcant
+		CMP		r5, #0
+		ADD		LR, PC, #after
+		BNE		shifter
+after
+		
+		
+		
+shifter
+		
 		
 		
 		
