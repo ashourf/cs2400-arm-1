@@ -23,11 +23,12 @@ start
 		LDR		r4,[r4] ;load counter into memory
 loop
 		AND		r5, r1, #0b1 ;get the least signifcant bit of multipcant
-		CMP		r5, #0
-		ADD		LR, PC, #after
-		BNE		shifter
+		CMP		r5,  ; compare least signifcant bit to zero
+		ADD		LR, PC, #after ; save spot
+		ADDNE    r3, 
+		BNE		shifter ; branch to shifitng subroutine
 after
-		
+	
 		
 		
 shifter
