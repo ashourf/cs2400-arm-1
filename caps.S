@@ -11,9 +11,11 @@
 chars		DCD		'a', 'B', '5', 'q', '0', 'O', '1', 's', 'b', 'i', 'G'
 count		DCD		11
 caps			FILL		4
-			ADR		r0 , chars
+			ADR		r0 , chars ;
 			ADR		r1, count
 			LDR		r2, [r1]
+			ADR		r5, caps ; 
+			LDR		r5, [r5] ;loads fill into memory
 			
 loop
 			LDR		r4, [r0] ;get first value
@@ -34,5 +36,6 @@ after
 capitalize
 			CMP		r4, #122  ; check for 122
 			SUBLE	r4, r4, #34 ; if less than or eqal to 122 subtract 34
+			ADD		r5, r5, #1  ;  adds to caps counter after each Capitalization
 			MOV		PC, LR      ;after execution move execution back to saved spot in main
 			
