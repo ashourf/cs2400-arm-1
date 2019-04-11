@@ -19,11 +19,10 @@ start
 		LDR		r1, [r0], #4 ;load multiplicand into r1
 		LDR		r2, [r0], #4 ;load multipiler into r2
 		LDR		r3, [r0], #4  ; set product to zero
-		LDR		r4, [r0] ; set partial sum to zero
-		ADR		r5, bcounter
-		LDR		r5,[r5] ;load counter into memory
+		ADR		r4, bcounter ; give bcounter address 
+		LDR		r4,[r4] ;load counter into memory
 loop
-		AND		r6, r1, #0b1
+		AND		r5, r1, #0b1 ;get the least signifcant bit of multipcant
 		
 		
 		
