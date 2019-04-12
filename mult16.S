@@ -9,29 +9,24 @@
 		
 		;		Your code here
 		
-numbers	DCD		0b1100101010010001, 0b1111010101000011, 0b0000000000000000
+numbers	DCD		10, 12
 result	FILL		4
 carry	FILL		4
-bcounter	DCD		16 ;bitcounter
+		
 		
 start
 		ADR		r0, numbers  ;load numbers into register r0
 		LDR		r1, [r0], #4 ;load multiplicand into r1
 		LDR		r2, [r0], #4 ;load multipiler into r2
-		LDR		r3, [r0], #4  ; set product to zero
-		ADR		r4, bcounter ; give bcounter address
-		LDR		r4,[r4] ;load counter into memory
+		MOV		r3,#0   ; set product to zero
 loop
-		AND		r5, r1, #0b1 ;get the least signifcant bit of multipcant
-		CMP		r5,  ; compare least signifcant bit to zero
-		ADD		LR, PC, #after ; save spot
-		ADDNE    r3, 
-		BNE		shifter ; branch to shifitng subroutine
-after
-	
-		
-		
-shifter
+		MOVS		r2, r2, LSR #1
+		ADDCS	r3, r3 ,r1
+		MOV		r1, r1,LSL #1
+		CMP		r2, #0
+		BGT		loop
+		ADR		r0, result
+		STR		r3, [r0]
 		
 		
 		
