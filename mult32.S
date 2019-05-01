@@ -11,3 +11,6 @@
 numbers	DCD		0xA0BCFF0D, 0xFFF0ADEA
 result	FILL		8
 carry	FILL		4
+		ADR		r0, numbers ; load values into memory
+		LDR		r1, [r0],#4 ; store number 1 in register
+		LDR		r2, [r0]    ; store number 2 
