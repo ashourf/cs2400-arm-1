@@ -9,7 +9,7 @@
 		
 		;		Your code here
 		
-numbers	DCD		10, 15
+numbers	DCD		6, 15
 result	FILL		4
 carry	FILL		4
 		
@@ -18,20 +18,26 @@ carry	FILL		4
 		LDR		r2, [r0]
 		ADR		r3, result ;load result block into memory
 		LDR		r3, [r3]
-		MOV		r4, #16 ; create counter
+		MOV		r4, #0 ; create counter
 		MOV		r5 , #0
 main
 		ANDS		r5,r2, #0b1 ; check least siginfcant bit of multiplier
-		ADDGT	r3, r3,r1 ; if 1 add multpicand to result 
-		BLT		shift     ; else branch to shift 
+		ADDNE	r3, r3,r1 ; if 1 add multpicand to result
+		ADD		LR, PC, #after ;saves spot after main onto link register
+		BEQ		shift     ; else branch to shift
+after
+		ADD		r4, r4 , #1   ;subtract one bit from counter
+		CMP		r4, #15 ; stop at N
+		BNE		main
+		END
 		
 		
 		
 		
 shift
-		MOV		r1, r1 , lsl #1
-		
-		
+		MOV		r1, r1 , lsl #1 ;bit shift multpicand left by 1 bit
+		MOV		r2, r2, lsr #1 ;bit shift multiper right by 1 bit
+		MOV		PC, LR      ;after execution move execution back to saved spot in main
 		
 		
 		
