@@ -9,7 +9,7 @@
 		
 		;		Your code here
 		
-numbers	DCD		4, 12
+numbers	DCD		20, 5
 result	FILL		4
 carry	FILL		4
 		
