@@ -9,13 +9,12 @@
 			;		Your code here
 			
 chars		DCD		'a', 'B', '5', 'q', '0', 'O', '1', 's', 'b', 'i', 'G'
-count		DCD		11
-caps			FILL		4
+
 			ADR		r0 , chars ;
 			ADR		r1, count
 			LDR		r2, [r1]
 			ADR		r5, caps ;
-			
+			MOV		r6, #0
 			
 loop
 			LDR		r4, [r0] ;get first value
@@ -26,6 +25,7 @@ after
 			STR		r4, [r0], #4  ; move to the next value
 			SUBS		r2, r2, #1 ; subtract one value from loop counter
 			BNE		loop       ; loop
+			STR		r6, [r5] ; store results in capital fill location
 			END		; end of program
 			
 			
@@ -36,6 +36,8 @@ after
 capitalize
 			CMP		r4, #122  ; check for 122
 			SUBLE	r4, r4, #32 ; if less than or equal to 122 subtract 34
-			ADD		r5, r5, #1  ;  adds to caps counter after each Capitalization
+			ADD		r6, r6, #1  ;  adds to caps counter after each Capitalization
 			MOV		PC, LR      ;after execution move execution back to saved spot in main
 			
+count		DCD		11
+caps			FILL		4
