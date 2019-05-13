@@ -12,27 +12,40 @@
 numbers	DCD		0x7fffffda, 0x7fffffff
 result	FILL		8
 carry	FILL		4
-masks	DCD		0x0000ffff
+masks	DCD		0x0000ffff , 0xffff0000
+		ADR		r0, masks ;get masks
+		LDR		r1, [r0], #4 ; load mask 0x0000ffff
+		LDR		r2, [r0] ; load mask 0xffff0000
 		ADR		r0, numbers ;load numbers into memory
-		LDR		r1, [r0], #4 ; load multpicand
-		LDR		r2, [r0] ; load multiplier
-		MOV		r3, r1, lsr #16 ;  lower half of multipcand
-		ADR		r0, masks ;get mask
-		LDR		r0, [r0] ; load mask
-		AND		r8, r0, r1 ; get upper half of multipcand
-		MOV		r4, #0 ; upper half of result
-		MOV		r5, #0 ;lower half of result
-		MOV		r6, #32 ; load counter into register
+		LDR		r3, [r0], #4 ; load mulitpicand
+		LDR		r4, [r0] ; load multiplier
+		AND		r5, r3, r1 ; get top half of multipicand
+		AND		r3, r3, r2 ; get bottom half of multipicand
+		AND		r6, r4, r1 ; get top half of multiplier
+		AND		r4, r4, r2 ; get bottom half of multiplier
+		MOV		r1, r5     ; make use of mask registers now that I don't need them
+		MOV		r2, r6     ; make use of mask registers now that I don't need them
+		MOV		r5, #0 ; set for top half of temp result
+		MOV		r6, #0 ; set for bottom half of temp result
+			
 main
-		TST		r2, #1 ; check least siginfcant bit of multiplier
-		ADDNE	r5, r5,r3 ; add lower multipcand to result
-		ADCNE	r4,r4, r1 ; add upper multipicand to result
+		
+	
+
+
+
+
+
+
+
+mul
+		TST		r7, #1 ; check least siginfcant bit of  generic multiplier
+		ADDNE	r9, r9,r8 ; if 1 add multpicand to result
+		ADDCS	r10,r10, #1 ; add if carry
 shift
-		MOV		r3, r3 , lsl #1 ;bit shift lower multpicand left by 1 bit
-		MOV		r8,r8, lsl #1 ;bit shit upper multipicand left by 1 bit
-		MOV		r2, r2, lsr #1 ;bit shift multiplier right by 1 bit
-		SUB		r6, r6 , #1   ;subtract one bit from counter
-		CMP		r6, #0 ; stop at N
+		MOV		r9, r9 , lsl #1 ;bit shift multpicand left by 1 bit
+		MOV		r8, r8, lsr #1 ;bit shift multiper right by 1 bit
+		SUB		r4, r4 , #1   ;subtract one bit from counter
+		CMP		r1, #0 ; stop at N
 		BNE		main
-		END
 		
