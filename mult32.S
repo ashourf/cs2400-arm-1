@@ -32,13 +32,11 @@ masks	DCD		0x0000ffff , 0xffff0000
 		
 		
 main
-		
 		MOV		r7 , r1 ; move top multipler into generic register
 		MOV		r8, r2 ; move top multicand into generic register
+		B		mul
 		
-		
-		
-		
+		end
 		
 		
 		
@@ -47,8 +45,11 @@ mul
 		TST		r7, #1 ; check least siginfcant bit of  generic multiplier
 		ADDNE	r9, r9,r8 ; if 1 add multpicand to result
 		ADDCS	r10,r10, #1 ; add if carry
-shift
 		MOV		r8, r8 , lsl #1 ;bit shift multpicand left by 1 bit
 		MOV		r7, r7, lsr #1 ;bit shift multiper right by 1 bit
 		CMP		r7, #0 ; stop at N
 		BNE		mul
+		MOVS		r8, r8, lsr #1 ;shift bit again
+		ADDCS	r9, r9, r8 ;if carry add one last time
+		
+		
