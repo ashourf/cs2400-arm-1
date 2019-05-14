@@ -7,7 +7,7 @@
 		;		Indicate if there was a high-bit carry using the provided "fill" word.
 		
 		;		Your code here
-		;		answer with my defaults should be 4.611685935×10^18
+		
 		
 numbers	DCD		0xA0BCFF0D, 0xFFF0ADEA
 result	FILL		8
