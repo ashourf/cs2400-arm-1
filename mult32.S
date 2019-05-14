@@ -35,8 +35,7 @@ main
 		MOV		r7 , r1 ; move top multipler into generic register
 		MOV		r8, r2 ; move top multicand into generic register
 		B		mul
-		
-		end
+
 		
 		
 		
@@ -51,5 +50,4 @@ mul
 		BNE		mul
 		MOVS		r8, r8, lsr #1 ;shift bit again
 		ADDCS	r9, r9, r8 ;if carry add one last time
-		
 		
