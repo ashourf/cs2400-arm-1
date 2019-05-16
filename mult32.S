@@ -13,6 +13,7 @@ numbers	DCD		0xA0BCFF0D, 0xFFF0ADEA
 result	FILL		8
 carry	FILL		4
 masks	DCD		0x0000ffff , 0xffff0000
+need		DCD		0x10000
 		ADR		r0, masks ;get masks
 		LDR		r1, [r0], #4 ; load mask 0x0000ffff
 		LDR		r2, [r0] ; load mask 0xffff0000
@@ -27,6 +28,8 @@ masks	DCD		0x0000ffff , 0xffff0000
 		MOV		r2, r4 , lsr #16   ; put top half of multipiler in right place
 		MOV		r3, r5
 		MOV		r4, r6
+		MOV		r5, #0
+		MOV		r6, #0
 		
 		
 		
@@ -75,10 +78,19 @@ mul4
 		MOV		r7, r7, lsr #1 ;bit shift multiper right by 1 bit
 		CMP		r7, #0 ; stop at N
 		BNE		mul4
-results
-       ADR   r0, result
-       ADR   r1, carry
-       MOV   r3, #0 ; top half of result
-       MOV  r4, #0  ; bottom half of result 
-       MOV  r5, #0  ; temp carry location
+product
+		ADR		r0, result
+		ADR		r1, carry
+		ADR		r7, need
+		LDR		r7, [r7]
+		ADDS		r5, r5, r6
+		ADDCS	r9,  r9, r7
+		ADDS		r11, r11, r5, lsl #16 ;shift and add
+		ADC		r9, r9 , r5, lsr #16  
+		STR		r11, [r0] ; store part of result 
+		STR		r9, [r0, #4] ; store part of result
+		STR		r10,[r1] ; store collected carries
+		
+		
+		
 		
