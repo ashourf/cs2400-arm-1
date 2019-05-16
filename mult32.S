@@ -75,4 +75,10 @@ mul4
 		MOV		r7, r7, lsr #1 ;bit shift multiper right by 1 bit
 		CMP		r7, #0 ; stop at N
 		BNE		mul4
+results
+       ADR   r0, result
+       ADR   r1, carry
+       MOV   r3, #0 ; top half of result
+       MOV  r4, #0  ; bottom half of result 
+       MOV  r5, #0  ; temp carry location
 		
