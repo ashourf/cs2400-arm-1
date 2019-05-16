@@ -43,8 +43,8 @@ mul1
 		CMP		r7, #0 ; stop at N
 		BNE		mul1
 		
-		MOV		r7 , r1 ; move top multicand into generic register
-		MOV		r8, r4 ; move bottom multiplier into generic register
+		MOV		r7 , r4 ;move bottom multiplier into generic register
+		MOV		r8, r1 ; move top multicand into generic register
 mul2
 		TST		r7, #1 ; check least siginfcant bit of  generic multiplier
 		ADDNE	r5, r5,r8 ; if 1 add multpicand to result
@@ -54,8 +54,8 @@ mul2
 		CMP		r7, #0 ; stop at N
 		BNE		mul2
 		
-		MOV		r7 , r3 ; move bottom multiplicand into generic register
-		MOV		r8, r2 ; top multipler into generic register
+		MOV		r7 , r2 ; move bottom multiplicand into generic register
+		MOV		r8, r3 ;top multipler into generic register
 mul3
 		TST		r7, #1 ; check least siginfcant bit of  generic multiplier
 		ADDNE	r6, r6,r8 ; if 1 add multpicand to result
@@ -65,8 +65,8 @@ mul3
 		CMP		r7, #0 ; stop at N
 		BNE		mul3
 		
-		MOV		r7 , r3 ; move bottom multipcand into generic register
-		MOV		r8, r4 ; move top multicand into generic register
+		MOV		r7 , r4 ; move bottom multipcand into generic register
+		MOV		r8, r3 ; move top multicand into generic register
 mul4
 		TST		r7, #1 ; check least siginfcant bit of  generic multiplier
 		ADDNE	r11, r11,r8 ; if 1 add multpicand to result
