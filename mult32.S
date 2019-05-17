@@ -1,3 +1,4 @@
+		
 		;		ARM Programming Assignment #1: 32 bit multiplier
 		;
 		;		Write a 32-bit multiplier.
@@ -83,11 +84,15 @@ product
 		ADR		r1, carry
 		ADR		r7, need
 		LDR		r7, [r7]
+		
+		
 		ADDS		r5, r5, r6
+		MOV		r12, r5, lsl #16
+		MOV		r5, r5, lsr #16
 		ADDCS	r9,  r9, r7
-		ADDS		r11, r11, r5, lsl #16 ;shift and add
-		ADC		r9, r9 , r5, lsr #16  
-		STR		r11, [r0] ; store part of result 
+		ADDS		r11, r11, r12
+		ADC		r9, r9 , r5
+		STR		r11, [r0] ; store part of result
 		STR		r9, [r0, #4] ; store part of result
 		STR		r10,[r1] ; store collected carries
 		
